@@ -8,7 +8,9 @@ A simple CRUD application using Flask and MySQL
 * MySQL
 * AdminLTE 2
 
-#### Running on Docker
+#### Running on Docker and docker-compose via hub.sh script
+
+./hub.sh
 
 ```
 docker-compose up -d
@@ -21,8 +23,20 @@ To destroy the containers, execute:
 ```
 docker-compose down --rmi all
 ```
+#### Runing APP on minikube
 
+```
+create deployment and service for app
+```
+to run all created objects
+# kubectl apply -f .
 
+# you need to expose service to be accessible outside the node
+
+```
+minikube service phonebook-mysql
+
+```
 # crudApp_k8s
 # crud-_app-k8s
 # crud-_app-k8s
