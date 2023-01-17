@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phonebook-app
+spec:
+  selector:
+    matchLabels:
+      app: phonebook-app
+  template:
+    metadata:
+      labels:
+        app: phonebook-app
+    spec:
+      containers:
+      - name: phonebook-app
+        image: mohamedmahrous/tactful-ai:13-26-16
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8181
+        imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phonebook-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: phonebook-app
+  ports:
+  - protocol: TCP
+    port: 8181
+    targetPort: 8181
+    nodePort: 30000
+

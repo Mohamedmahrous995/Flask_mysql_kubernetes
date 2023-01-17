@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phonebook-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phonebook-mysql
+  template:
+    metadata:
+      labels:
+        app: phonebook-mysql
+    spec:
+      volumes:
+        - name: server-storage
+          persistentVolumeClaim:
+            claimName: my-pvc
+      containers:
+      - name: phonebook-mysql
+        image: mysql:5.5
+        ports:
+        - containerPort: 3306
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: server-storage
+            mountPath: "docker-entrypoint-initdb.d/"
+        envFrom:
+        - secretRef:
+            name: mysecret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phonebook-mysql
+spec:
+  selector:
+    app: phonebook-mysql
+  ports:
+  - port: 3306
+
+  type: ClusterIP
+
