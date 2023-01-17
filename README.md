@@ -22,12 +22,7 @@ To destroy the containers, execute:
 docker-compose down --rmi all
 ```
 
-## Donate
 
-If you want to donate to this project, please contact us:
-
-- Email: moehammadhanif@gmail.com
-- Telegram: [@hanifmu](https://t.me/hanifmu)
 # crudApp_k8s
 # crud-_app-k8s
 # crud-_app-k8s
